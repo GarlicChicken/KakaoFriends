@@ -9,7 +9,7 @@
         <div class="bounce3"></div>
     </div>
     <!-- router-view 영역(Main, Collection)에서는 MylistUpdate,
-    showProdcutInfo로 데이터를 주고 받고 products, Mylist 공유 -->
+    showProdcutInfo로데이터를 주고 받고 products, Mylist를 공유 -->
     <router-view @MylistUpdate="MylistUpdate" @showProductInfo="showProductInfo" :products="products" :Mylist="Mylist"/>
         <!-- product info -->
         <modal v-show="showModal" @close="showModal = false">
@@ -66,17 +66,15 @@ export default {
         let ref = db.collection("products").orderBy("id", "asc")
         ref.onSnapshot(snapshot => {
             snapshot.docChanges().forEach(change => {
-                if(change.type == 'added'){
-                    let doc = change.doc
-                    this.products.push({
-                        id: doc.data().id,
-                        name: doc.data().name,
-                        content : doc.data().content,
-                        price: doc.data().price,
-                        url: doc.data().url+'1.jpg',
-                        choice: false
-                    })
-                }
+                let doc = change.doc
+                this.products.push({
+                    id: doc.data().id,
+                    name: doc.data().name,
+                    content : doc.data().content,
+                    price: doc.data().price,
+                    url: doc.data().url+'1.jpg',
+                    choice: false
+                })
             })
             this.isLoading=true;
         })
@@ -159,7 +157,7 @@ export default {
     .infoDetailImage{
         margin: 15px 0px;
         width:100%;
-            height:100%;
+        height:100%;
     }
     .infoAddmylist,
     .infoDelmylist,

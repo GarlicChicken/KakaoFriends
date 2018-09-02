@@ -1,7 +1,9 @@
 <template>
     <div id="main">
-        <ul id="Products">
-            <li class="Product inline" v-for="product, index in products" :key="product.id">
+        <!-- 상품 정보 출력 -->
+        <ul id="products">
+            <!-- listCount만큼 목록을 출력하고 스크롤했을 때 listCount를 10만큼 늘림 -->
+            <li class="product inline" v-for="product, index in products" :key="product.id" v-if="index < listCount">
                 <img class="thumbnail linkTo" :src="product.url" :alt="product.name" @click="showProductInfo(product, index)">
                 <div class="caption">
                     <p class="description linkTo" @click="showProductInfo(product, index)">{{product.content}}</p>
@@ -15,7 +17,20 @@
 </template>
 <script>
 export default {
-    props:['products'],
+    props:['products','listCountMax'],
+    data() {
+        return {
+            listCount:10
+        }
+    },
+    created () {
+        //페이지가 생성될 때window에 scroll event 부착
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    destroyed(){
+        //페이지를 떠나서 DOM이 사라질 때 event 삭제
+        window.removeEventListener('scroll', this.handleScroll);
+    },
     methods:{
         MylistUpdate(product, index){
             if (product['choice']===false){
@@ -26,24 +41,28 @@ export default {
         },
         showProductInfo(product, index){
             this.$emit('showProductInfo', product, index)
+        },
+        //스크롤 위치를 %로 가져와 99%에 위치했을 때 리스트를 추가로 불러오는 함수
+        handleScroll(){
+            const scrollPosition = (window.scrollY + window.innerHeight) / document.body.clientHeight * 100
+            if(scrollPosition > 99 && this.listCount < this.products.length){
+                this.listCount = this.listCount + 10;
+            }
         }
     }
 }
 </script>
 
 <style>
-    #main{
-        margin-top: 90px;
-        text-align: center;
-        }
+    #main{margin-top: 90px;}
     /* products */
-    #Products{
+    #products{
         list-style: none;
         max-width: 1140px;
         padding :0px;
         margin: auto;
     }
-    .Product{
+    .product{
         vertical-align: top;
         list-style: none;
         margin:20px;
@@ -86,6 +105,7 @@ export default {
     }
     @media (max-width: 860px) {
         #main{
+            text-align: center;
             margin-top: 60px;
         }
     }
