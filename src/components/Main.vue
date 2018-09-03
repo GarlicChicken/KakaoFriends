@@ -103,9 +103,9 @@ export default {
         background-color: white;
     }
     .delMylist {
-        color: white;
         background-color: hotpink;
-        border: hotpink;
+        border-style: hotpink;
+        color: white;
     }
     @media (max-width: 860px) {
         #main{
