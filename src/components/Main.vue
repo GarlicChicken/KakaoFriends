@@ -8,8 +8,8 @@
                 <div class="caption">
                     <p class="description linkTo" @click="showProductInfo(product, index)">{{product.content}}</p>
                     <p class="NameAndPrice">{{product.name}} ${{product.price}}</p>
-                    <span v-if="product.choice===false" class="addMylist linkTo" @click="MylistUpdate(product, index)">My list</span>
-                    <span v-else class="delMylist linkTo" @click="MylistUpdate(product, index)">My list</span>
+                    <button v-if="product.choice===false" class="addMylist linkTo" @click="MylistUpdate(product, index)">My list</button>
+                    <button v-else class="delMylist linkTo" @click="MylistUpdate(product, index)">My list</button>
                 </div>
             </li>
         </ul>
@@ -32,6 +32,7 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
     methods:{
+        //Mylist 버튼 활성화에 따라 Mylist에 추가하거나 삭제
         MylistUpdate(product, index){
             if (product['choice']===false){
                 this.$emit('MylistUpdate','add',product, index);
@@ -97,6 +98,9 @@ export default {
         padding: 5px 12px 5px 12px;
         border-radius: 3px;
         border: 1px solid;
+    }
+    .addMylist{
+        background-color: white;
     }
     .delMylist {
         color: white;

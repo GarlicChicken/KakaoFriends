@@ -1,39 +1,38 @@
 <template>
-  <div id="app">
-    <!-- Header와 Mylist, totalpirce 공유 -->
-    <Header :Mylist="Mylist" :totalprice="totalprice"></Header>
-    <!-- Loading Animation -->
-    <div v-show="!isLoading" class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-    </div>
-    <!-- router-view 영역(Main, Collection)에서는 MylistUpdate,
-    showProdcutInfo로데이터를 주고 받고 products, Mylist를 공유 -->
-    <router-view @MylistUpdate="MylistUpdate" @showProductInfo="showProductInfo" :products="products" :Mylist="Mylist"/>
-        <!-- product info -->
-        <modal v-show="showModal" @close="showModal = false">
-            <div slot="header">
-                <img class="infoMainImage" :src="infoImageURL[0]">
-                <div class="infoHeaderContent">
-                    <h2>{{productInfo['name']}}</h2>
-                    <p>$ {{productInfo['price']}}</p>
-                    <p class="infoDescription">{{productInfo['content']}}</p>
-                    <button v-if="productInfo['choice']===false" class="infoAddmylist linkTo" @click="MylistUpdate('add', productInfo, productsIndex)">My list</button>
-                    <button v-else class="infoDelmylist linkTo" @click="MylistUpdate('del', productInfo, productsIndex)">My list</button>
-                    <button class="infoBuybutton linkTo" @click="buyProduct(productInfo, productsIndex)">Buy</button>
+    <div id="app">
+        <!-- Header와 Mylist, totalpirce 공유 -->
+        <Header :Mylist="Mylist" :totalprice="totalprice"></Header>
+        <!-- Loading Animation -->
+        <div v-show="!isLoading" class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        <!-- router-view 영역(Main, Collection)에서는 MylistUpdate,
+        showProdcutInfo로데이터를 주고 받고 products, Mylist를 공유 -->
+        <router-view @MylistUpdate="MylistUpdate" @showProductInfo="showProductInfo" :products="products" :Mylist="Mylist"/>
+            <!-- product info -->
+            <modal v-show="showModal" @close="showModal = false">
+                <div slot="header">
+                    <img class="infoMainImage" :src="infoImageURL[0]">
+                    <div class="infoHeaderContent">
+                        <h2>{{productInfo['name']}}</h2>
+                        <p>$ {{productInfo['price']}}</p>
+                        <p class="infoDescription">{{productInfo['content']}}</p>
+                        <button v-if="productInfo['choice']===false" class="infoAddmylist linkTo" @click="MylistUpdate('add', productInfo, productsIndex)">My list</button>
+                        <button v-else class="infoDelmylist linkTo" @click="MylistUpdate('del', productInfo, productsIndex)">My list</button>
+                        <button class="infoBuybutton linkTo" @click="buyProduct(productInfo, productsIndex)">Buy</button>
+                    </div>
                 </div>
-            </div>
-            <div slot="body" class="infoContent">
-                <span class="infoDetailSub">DETAILS</span>
-                <img class="infoDetailImage" v-show="image!=infoImageURL[0]" v-for="image in infoImageURL" :src="image">
-            </div>
-            <div slot="footer">
-            </div>
-        </modal>
-
-    <Footer></Footer>
-  </div>
+                <div slot="body" class="infoContent">
+                    <span class="infoDetailSub">DETAILS</span>
+                    <img class="infoDetailImage" v-show="image!=infoImageURL[0]" v-for="image in infoImageURL" :src="image">
+                </div>
+                <div slot="footer">
+                </div>
+            </modal>
+        <Footer></Footer>
+    </div>
 </template>
 
 <script>
@@ -100,10 +99,10 @@ export default {
                 this.products[index]['choice'] = false;
                 this.totalprice = this.totalprice - product.price;
                 for (var key in this.Mylist){
-                if (this.Mylist[key].id === product.id){
-                    this.Mylist.splice(key, 1);
-                    break;
-                }
+                    if (this.Mylist[key].id === product.id){
+                        this.Mylist.splice(key, 1);
+                        break;
+                    }
                 }
             }
         },
@@ -112,7 +111,7 @@ export default {
             this.showModal = true;
             this.productInfo = product;
             this.productsIndex = index;
-            // DEATIL 이미지를 가져옴
+            // MAIN, DEATIL 이미지를 가져옴
             this.infoImageURL[0] = this.productInfo['url'].replace('MODEL','MAIN');
             for (var i=1; i < 5; i++){
                 this.infoImageURL[i] = this.infoImageURL[0].replace('MAIN_C_00001','DETAIL_0000'+i);

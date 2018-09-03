@@ -29,31 +29,31 @@
                 </div>
                 <!--Mobile Controller call button-->
                 <span class="mobileContorl linkTo" @click="MobileControl(product)"><i class="fas fa-ellipsis-v grey"></i></span>
-                <!-- Mobile Controller -->
-                <MobileController v-show="showMobileController" @close="showMobileController = false">
-                    <div slot="top">
-                        <!-- top button(plus, minus and count) -->
-                        <div id="mobileControlTop">
-                            <div class="mobileBtn linkTo" @click="MobileControl(mobileProduct, 'minus')"><i class="fas fa-minus"></i></div>
-                            <div class="mobileBtn">
-                                <span v-if="mobileProductCount===0">{{productCount[mylistIndex]}}</span>
-                                <span v-else>{{mobileProductCount}}</span>
-                            </div>
-                            <div class="mobileBtn linkTo" @click="MobileControl(mobileProduct, 'plus')"><i class="fas fa-plus"></i></div>
-                            <hr id="mobileLine"/>
-                            <div class="mobileOkBtn linkTo" @click="MobileControl(mobileProduct, 'ok')">OK</div>
-                        </div>
-                    </div>
-                    <div slot="bottom">
-                        <!-- bottom button(delete) -->
-                        <div id="mobileControlBottom" class="linkTo"  @click="delMylist(mobileProduct, 'mobile')">
-                            Delete
-                        </div>
-                    </div>
-                </MobileController>
                 <hr v-if="index+1 < Mylist.length"/>
             </li>
         </ul>
+        <!-- Mobile Controller -->
+        <MobileController v-show="showMobileController" @close="showMobileController = false">
+            <div slot="top">
+                <!-- top button(plus, minus and count) -->
+                <div id="mobileControlTop">
+                    <div class="mobileBtn linkTo" @click="MobileControl(mobileProduct, 'minus')"><i class="fas fa-minus"></i></div>
+                    <div class="mobileBtn">
+                        <span v-if="mobileProductCount===0">{{productCount[mylistIndex]}}</span>
+                        <span v-else>{{mobileProductCount}}</span>
+                    </div>
+                    <div class="mobileBtn linkTo" @click="MobileControl(mobileProduct, 'plus')"><i class="fas fa-plus"></i></div>
+                    <hr id="mobileLine"/>
+                    <div class="mobileOkBtn linkTo" @click="MobileControl(mobileProduct, 'ok')">OK</div>
+                </div>
+            </div>
+            <div slot="bottom">
+                <!-- bottom button(delete) -->
+                <div id="mobileControlBottom" class="linkTo"  @click="delMylist(mobileProduct, 'mobile')">
+                    Delete
+                </div>
+            </div>
+        </MobileController>
     </div>
 </template>
 
