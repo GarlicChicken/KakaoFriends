@@ -76,9 +76,9 @@ export default {
     components:{
         'MobileController': MobileController
     },
-    // Mylist를 띄울 때 1개씩 checked
+    // 최초로 Collection페이지에서 Mylist를 띄울 때 1개씩 checked
     created(){
-        for(var key in this.Mylist){
+        for(let key in this.Mylist){
             this.checked[key] = true;
             this.productCount[key] = 1;
             this.totalprice = this.totalprice + this.Mylist[key].price;
@@ -92,7 +92,7 @@ export default {
         }
         // check한 상품이 totalprice에 반영
         let checked = 0;
-        for(var key in this.Mylist){
+        for(let key in this.Mylist){
             if (this.checked[key] === true){
                 checked = checked + this.Mylist[key].price * this.productCount[key];
             }
@@ -102,8 +102,8 @@ export default {
     methods:{
         //삭제할 경우 App으로 보내서 Mylist에서 삭제 처리
         delMylist(product, res){
-            var index = this.findIndex(product.id, 'products');
-            var key = this.findIndex(product.id, 'mylist');
+            let index = this.findIndex(product.id, 'products');
+            let key = this.findIndex(product.id, 'mylist');
             this.productCount.splice(key, 1);
             this.$emit('MylistUpdate', 'del', product, index);
             this.totalprice = this.totalprice - product.price;
@@ -113,12 +113,12 @@ export default {
         },
         //Mylist에서도 품목 정보를 볼 수 있도록 App에 Modal(Product 정보)를 요청하는 함수
         showProductInfo(product){
-            var index = this.findIndex(product.id, 'products');
+            let index = this.findIndex(product.id, 'products');
             this.$emit('showProductInfo', product, index);
         },
         //모바일 화면에서 product 수량 변경, 삭제 등이 가능한 창을 띄우고 명령을 수행하는 함수
         MobileControl(product, res){
-            var key = this.findIndex(product.id, 'Mylist');
+            let key = this.findIndex(product.id, 'Mylist');
             if (this.showMobileController === false){
                 this.showMobileController = true;
                 this.mobileProduct = product;
@@ -132,6 +132,7 @@ export default {
                 }else if(res === 'minus'){ 
                     this.mobileProductCount = this.mobileProductCount - 1;
                 }else{
+                    //OK 버튼을 눌렀을 때 수량(productCount)에 반영
                     this.productCount[key] = this.mobileProductCount;
                     this.mobileProductCount = 0;
                     this.showMobileController = false;
@@ -141,13 +142,13 @@ export default {
         // products 또는 Mylist에서 인덱스(key)를 찾아 return 해주는 함수
         findIndex(id, res){
             if(res === 'products'){
-                for (var key in this.products){
+                for (let key in this.products){
                     if(this.products[key].id === id){
                         return key;
                     }
                 }
             }else{
-                for (var key in this.Mylist){
+                for (let key in this.Mylist){
                     if(this.Mylist[key].id === id){
                         return key;
                     }

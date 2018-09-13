@@ -16,10 +16,10 @@
                 <div slot="header">
                     <img class="infoMainImage" :src="infoImageURL[0]">
                     <div class="infoHeaderContent">
-                        <h2>{{productInfo['name']}}</h2>
-                        <p>$ {{productInfo['price']}}</p>
-                        <p class="infoDescription">{{productInfo['content']}}</p>
-                        <button v-if="productInfo['choice']===false" class="infoAddmylist linkTo" @click="MylistUpdate('add', productInfo, productsIndex)">My list</button>
+                        <h2>{{productInfo.name}}</h2>
+                        <p>$ {{productInfo.price}}</p>
+                        <p class="infoDescription">{{productInfo.content}}</p>
+                        <button v-if="productInfo.choice===false" class="infoAddmylist linkTo" @click="MylistUpdate('add', productInfo, productsIndex)">My list</button>
                         <button v-else class="infoDelmylist linkTo" @click="MylistUpdate('del', productInfo, productsIndex)">My list</button>
                         <button class="infoBuybutton linkTo" @click="buyProduct(productInfo, productsIndex)">Buy</button>
                     </div>
@@ -83,10 +83,10 @@ export default {
         buyProduct(product, index){
             this.showModal = false;
             if(product['choice'] === true){
-                this.$router.push('/KakaoFriends/Collection');
+                this.$router.push('/Collection');
             }else{
                 this.MylistUpdate('add', product, index);
-                this.$router.push('/KakaoFriends/Collection');
+                this.$router.push('/Collection');
             }
         },
         //Mylist 추가, 삭제를 담당하는 함수
@@ -98,7 +98,7 @@ export default {
             }else{
                 this.products[index]['choice'] = false;
                 this.totalprice = this.totalprice - product.price;
-                for (var key in this.Mylist){
+                for (let key in this.Mylist){
                     if (this.Mylist[key].id === product.id){
                         this.Mylist.splice(key, 1);
                         break;
@@ -113,7 +113,7 @@ export default {
             this.productsIndex = index;
             // MAIN, DEATIL 이미지를 가져옴
             this.infoImageURL[0] = this.productInfo['url'].replace('MODEL','MAIN');
-            for (var i=1; i < 5; i++){
+            for (let i=1; i < 5; i++){
                 this.infoImageURL[i] = this.infoImageURL[0].replace('MAIN_C_00001','DETAIL_0000'+i);
             }
         }

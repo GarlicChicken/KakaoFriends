@@ -45,7 +45,7 @@ export default {
         },
         //스크롤 위치를 %로 가져와 99%에 위치했을 때 리스트를 추가로 불러오는 함수
         handleScroll(){
-            const scrollPosition = (window.scrollY + window.innerHeight) / document.body.clientHeight * 100
+            let scrollPosition = (window.scrollY + window.innerHeight) / document.body.clientHeight * 100
             if(scrollPosition > 99 && this.listCount < this.products.length){
                 this.listCount = this.listCount + 10;
             }

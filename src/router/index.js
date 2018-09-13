@@ -9,12 +9,12 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/KakaoFriends/',
+      path: '/',
       name: 'Main',
       component: Main
     }
     ,{
-      path: '/KakaoFriends/Collection',
+      path: '/Collection',
       name: 'Collection',
       component: Collection
     }

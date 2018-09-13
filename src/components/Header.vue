@@ -1,9 +1,9 @@
 <template>
     <div id="Header">
         <div id="navBar">
-            <router-link id="Home" to="/KakaoFriends/">HOME</router-link>
+            <router-link id="Home" to="/">HOME</router-link>
             <!-- Mylist, totaprice view & Mylist router -->
-            <div class="linkTo inline" id="listIcon" @click="linkTo('/KakaoFriends/Collection')">
+            <div class="linkTo inline" id="listIcon" @click="linkTo('/Collection')">
                 <img id="mobileIcon" src="https://i.pinimg.com/236x/63/35/e6/6335e6f679f84cc671f61ec2fb653701--kakao-wallpaper.jpg">
                 <img v-for="product in Mylist" :src="product.url" class="iconImage">
                 <span v-if="totalprice.toFixed(2) > 0" class="inline" id="priceIcon"> 
